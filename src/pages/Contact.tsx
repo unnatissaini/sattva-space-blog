@@ -1,43 +1,58 @@
-import { useState } from "react";
-import { Mail, MapPin, Phone, Send, MessageCircle, Clock } from "lucide-react";
+import React, { useState } from 'react'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import * as z from 'zod'
+import { Mail, MapPin, Phone, Send, MessageCircle, Clock, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { useToast } from "@/hooks/use-toast";
+import { supabase } from '@/lib/supabase'
+import { toast } from 'sonner'
+
+const contactSchema = z.object({
+  name: z.string().min(1, 'Name is required'),
+  email: z.string().email('Please enter a valid email address'),
+  subject: z.string().min(1, 'Subject is required'),
+  message: z.string().min(10, 'Message must be at least 10 characters'),
+})
+
+type ContactFormData = z.infer<typeof contactSchema>
 
 const Contact = () => {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    subject: "",
-    message: ""
-  });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const { toast } = useToast();
+  const [isLoading, setIsLoading] = useState(false)
+  
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<ContactFormData>({
+    resolver: zodResolver(contactSchema),
+  })
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
-  };
+  const onSubmit = async (data: ContactFormData) => {
+    setIsLoading(true)
+    try {
+      const { error } = await supabase
+        .from('contact_messages')
+        .insert([{
+          name: data.name,
+          email: data.email,
+          message: `Subject: ${data.subject}\n\n${data.message}`
+        }])
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
+      if (error) throw error
 
-    // Simulate form submission
-    setTimeout(() => {
-      toast({
-        title: "Message sent successfully!",
-        description: "Thank you for reaching out. We'll get back to you within 24 hours.",
-      });
-      setFormData({ name: "", email: "", subject: "", message: "" });
-      setIsSubmitting(false);
-    }, 1000);
-  };
+      toast.success('Message sent successfully! We\'ll get back to you soon.')
+      reset()
+    } catch (error) {
+      console.error('Error sending message:', error)
+      toast.error('Failed to send message. Please try again.')
+    } finally {
+      setIsLoading(false)
+    }
+  }
 
   const contactInfo = [
     {
@@ -145,7 +160,7 @@ const Contact = () => {
                 </CardTitle>
               </CardHeader>
               <CardContent className="p-6">
-                <form onSubmit={handleSubmit} className="space-y-6">
+                <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
                       <label htmlFor="name" className="block text-sm font-medium text-foreground mb-2">
@@ -153,14 +168,15 @@ const Contact = () => {
                       </label>
                       <Input
                         id="name"
-                        name="name"
-                        type="text"
-                        required
-                        value={formData.name}
-                        onChange={handleInputChange}
                         placeholder="Your full name"
-                        className="bg-background border-border focus:border-primary"
+                        {...register('name')}
+                        className={`bg-background border-border focus:border-primary ${
+                          errors.name ? 'border-destructive' : ''
+                        }`}
                       />
+                      {errors.name && (
+                        <p className="text-sm text-destructive mt-1">{errors.name.message}</p>
+                      )}
                     </div>
                     <div>
                       <label htmlFor="email" className="block text-sm font-medium text-foreground mb-2">
@@ -168,14 +184,16 @@ const Contact = () => {
                       </label>
                       <Input
                         id="email"
-                        name="email"
                         type="email"
-                        required
-                        value={formData.email}
-                        onChange={handleInputChange}
                         placeholder="your.email@example.com"
-                        className="bg-background border-border focus:border-primary"
+                        {...register('email')}
+                        className={`bg-background border-border focus:border-primary ${
+                          errors.email ? 'border-destructive' : ''
+                        }`}
                       />
+                      {errors.email && (
+                        <p className="text-sm text-destructive mt-1">{errors.email.message}</p>
+                      )}
                     </div>
                   </div>
 
@@ -185,14 +203,15 @@ const Contact = () => {
                     </label>
                     <Input
                       id="subject"
-                      name="subject"
-                      type="text"
-                      required
-                      value={formData.subject}
-                      onChange={handleInputChange}
                       placeholder="What's this about?"
-                      className="bg-background border-border focus:border-primary"
+                      {...register('subject')}
+                      className={`bg-background border-border focus:border-primary ${
+                        errors.subject ? 'border-destructive' : ''
+                      }`}
                     />
+                    {errors.subject && (
+                      <p className="text-sm text-destructive mt-1">{errors.subject.message}</p>
+                    )}
                   </div>
 
                   <div>
@@ -201,24 +220,29 @@ const Contact = () => {
                     </label>
                     <Textarea
                       id="message"
-                      name="message"
-                      required
-                      value={formData.message}
-                      onChange={handleInputChange}
                       placeholder="Tell us how we can help you on your wellness journey..."
                       rows={6}
-                      className="bg-background border-border focus:border-primary resize-none"
+                      {...register('message')}
+                      className={`bg-background border-border focus:border-primary resize-none ${
+                        errors.message ? 'border-destructive' : ''
+                      }`}
                     />
+                    {errors.message && (
+                      <p className="text-sm text-destructive mt-1">{errors.message.message}</p>
+                    )}
                   </div>
 
                   <div className="flex flex-col sm:flex-row gap-4 items-start">
                     <Button
                       type="submit"
-                      disabled={isSubmitting}
+                      disabled={isLoading}
                       className="bg-gradient-hero hover:opacity-90 text-white px-8 py-3"
                     >
-                      {isSubmitting ? (
-                        "Sending..."
+                      {isLoading ? (
+                        <>
+                          <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                          Sending...
+                        </>
                       ) : (
                         <>
                           Send Message

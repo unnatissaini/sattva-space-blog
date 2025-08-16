@@ -1,13 +1,15 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Search, Menu, X } from "lucide-react";
+import { Search, Menu, X, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { useAuth } from "@/contexts/AuthContext";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const location = useLocation();
+  const { user } = useAuth();
 
   const navigation = [
     { name: "Home", href: "/" },
@@ -50,7 +52,7 @@ const Header = () => {
             ))}
           </div>
 
-          {/* Search Bar */}
+          {/* Search Bar & Admin */}
           <div className="hidden md:flex items-center space-x-4">
             <div className="relative">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
@@ -62,6 +64,14 @@ const Header = () => {
                 className="pl-10 w-64 bg-muted/50 border-border focus:border-primary"
               />
             </div>
+            {user && (
+              <Button asChild variant="ghost" size="sm">
+                <Link to="/admin">
+                  <User className="h-4 w-4 mr-2" />
+                  Admin
+                </Link>
+              </Button>
+            )}
           </div>
 
           {/* Mobile menu button */}

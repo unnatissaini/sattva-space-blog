@@ -3,6 +3,7 @@ import { ArrowRight, Heart, Leaf, Users, BookOpen } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import BlogCard from "@/components/BlogCard";
+import { NewsletterSignup } from "@/components/NewsletterSignup";
 import { blogPosts } from "@/data/blogPosts";
 import heroImage from "@/assets/hero-wellness.jpg";
 
@@ -148,30 +149,14 @@ const Home = () => {
       <section className="py-16 bg-muted/30">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto text-center">
-            <div className="bg-gradient-card p-8 rounded-xl shadow-card border border-border/50">
-              <h2 className="text-2xl sm:text-3xl font-heading font-bold text-foreground mb-4">
-                Join Our Wellness Community
-              </h2>
-              <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
-                Get weekly wellness tips, natural remedies, and mindfulness practices 
-                delivered straight to your inbox. Start your journey to better health today.
-              </p>
-              
-              <div className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
-                <input
-                  type="email"
-                  placeholder="Enter your email address"
-                  className="flex-1 px-4 py-3 rounded-lg border border-border bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-                />
-                <Button className="bg-gradient-hero hover:opacity-90 text-white px-6 py-3 whitespace-nowrap">
-                  Subscribe
-                </Button>
-              </div>
-              
-              <p className="text-sm text-muted-foreground mt-3">
-                No spam, unsubscribe anytime. Your wellness journey is sacred to us.
-              </p>
-            </div>
+            <h2 className="text-2xl sm:text-3xl font-heading font-bold text-foreground mb-4">
+              Join Our Wellness Community
+            </h2>
+            <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
+              Get weekly wellness tips, natural remedies, and mindfulness practices 
+              delivered straight to your inbox. Start your journey to better health today.
+            </p>
+            <NewsletterSignup />
           </div>
         </div>
       </section>
