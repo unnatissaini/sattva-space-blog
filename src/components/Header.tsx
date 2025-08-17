@@ -1,21 +1,21 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Search, Menu, X, User } from "lucide-react";
+import { Menu, X, User, Globe } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { useAuth } from "@/contexts/AuthContext";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState("");
   const location = useLocation();
   const { user } = useAuth();
+  const { language, setLanguage, t } = useLanguage();
 
   const navigation = [
-    { name: "Home", href: "/" },
-    { name: "Blog", href: "/blog" },
-    { name: "About", href: "/about" },
-    { name: "Contact", href: "/contact" },
+    { name: t('nav.home'), href: "/" },
+    { name: t('nav.blog'), href: "/blog" },
+    { name: t('nav.about'), href: "/about" },
+    { name: t('nav.contact'), href: "/contact" },
   ];
 
   const isActive = (href: string) => location.pathname === href;
@@ -51,13 +51,22 @@ const Header = () => {
             ))}
           </div>
 
-          {/* Admin */}
-          <div className="hidden md:flex items-center">
+          {/* Language Toggle & Admin */}
+          <div className="hidden md:flex items-center space-x-2">
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => setLanguage(language === 'en' ? 'hi' : 'en')}
+              className="font-medium"
+            >
+              <Globe className="h-4 w-4 mr-2" />
+              {language === 'en' ? 'हिं' : 'EN'}
+            </Button>
             {user && (
               <Button asChild variant="ghost" size="sm">
                 <Link to="/admin">
                   <User className="h-4 w-4 mr-2" />
-                  Admin
+                  {t('nav.admin')}
                 </Link>
               </Button>
             )}
@@ -91,6 +100,25 @@ const Header = () => {
                   {item.name}
                 </Link>
               ))}
+              <div className="flex items-center justify-between pt-4 border-t border-border">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => setLanguage(language === 'en' ? 'hi' : 'en')}
+                  className="font-medium"
+                >
+                  <Globe className="h-4 w-4 mr-2" />
+                  {language === 'en' ? 'हिं' : 'EN'}
+                </Button>
+                {user && (
+                  <Button asChild variant="ghost" size="sm">
+                    <Link to="/admin">
+                      <User className="h-4 w-4 mr-2" />
+                      {t('nav.admin')}
+                    </Link>
+                  </Button>
+                )}
+              </div>
             </div>
           </div>
         )}
