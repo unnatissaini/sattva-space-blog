@@ -5,7 +5,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import BlogCard from "@/components/BlogCard";
 import { NewsletterSignup } from "@/components/NewsletterSignup";
 import { blogPosts } from "@/data/blogPosts";
-import heroImage from "@/assets/hero-wellness.jpg";
+import heroImage from "@/assets/hero-sattva-space.jpg";
 
 const Home = () => {
   const featuredPosts = blogPosts.slice(0, 3);
@@ -44,36 +44,52 @@ const Home = () => {
           <div className="absolute inset-0 bg-gradient-to-r from-primary/80 to-primary-glow/60"></div>
         </div>
         
-        <div className="relative z-10 text-center text-white px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
-          <h1 className="text-5xl sm:text-6xl lg:text-7xl font-heading font-bold mb-6 animate-fade-in">
-            Nurturing Mind,
+        <div className="relative z-10 text-center text-white px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto">
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-heading font-bold mb-6 animate-fade-in leading-tight">
+            Welcome to Sattva Space
             <br />
-            Body & Spirit
+            <span className="text-primary-glow">Where Wellness Meets Wisdom</span>
           </h1>
-          <p className="text-xl sm:text-2xl mb-8 text-white/90 max-w-2xl mx-auto animate-fade-in [animation-delay:0.2s]">
-            Discover your path to holistic wellness through mindful practices, 
-            natural remedies, and expert guidance.
+          <p className="text-lg sm:text-xl mb-8 text-white/90 max-w-3xl mx-auto animate-fade-in [animation-delay:0.2s] leading-relaxed">
+            Join thousands on their journey to holistic health. Discover evidence-based wellness practices, 
+            natural healing remedies, and mindful living tips that transform your daily life from the inside out.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in [animation-delay:0.4s]">
             <Button 
               asChild 
               size="lg" 
-              className="bg-white text-primary hover:bg-white/90 font-semibold px-8 py-4 text-lg"
+              className="bg-white text-primary hover:bg-white/90 hover:scale-105 transition-all duration-300 font-semibold px-8 py-4 text-lg shadow-lg"
             >
               <Link to="/blog">
-                Explore Articles <ArrowRight className="w-5 h-5 ml-2" />
+                Start Reading <ArrowRight className="w-5 h-5 ml-2" />
               </Link>
             </Button>
             <Button 
               asChild 
               variant="outline" 
               size="lg"
-              className="border-white text-white hover:bg-white hover:text-primary font-semibold px-8 py-4 text-lg"
+              className="border-2 border-white/80 bg-white/10 text-white hover:bg-white hover:text-primary hover:scale-105 transition-all duration-300 font-semibold px-8 py-4 text-lg backdrop-blur-sm"
             >
               <Link to="/about">
-                About Sattva Space
+                Our Story
               </Link>
             </Button>
+          </div>
+          
+          {/* Trust indicators */}
+          <div className="mt-12 flex flex-wrap justify-center items-center gap-8 text-white/80 text-sm animate-fade-in [animation-delay:0.6s]">
+            <div className="flex items-center gap-2">
+              <Heart className="w-4 h-4" />
+              <span>1000+ Wellness Articles</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <Users className="w-4 h-4" />
+              <span>50k+ Community Members</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <Leaf className="w-4 h-4" />
+              <span>Evidence-Based Content</span>
+            </div>
           </div>
         </div>
       </section>
