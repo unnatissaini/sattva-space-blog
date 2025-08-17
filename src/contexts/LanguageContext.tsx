@@ -33,6 +33,22 @@ const translations = {
     'features.wisdom': 'Ancient Wisdom',
     'features.wisdom.desc': 'Discover timeless teachings adapted for contemporary living.',
     
+    // Stats
+    'stats.students': 'Active Students',
+    'stats.courses': 'Meditation Courses',
+    'stats.teachers': 'Expert Teachers',
+    'stats.success': 'Success Rate',
+    
+    // Testimonials
+    'testimonials.title': 'What Our Community Says',
+    'testimonials.subtitle': 'Real stories from people who have transformed their lives through our practices.',
+    
+    // CTA Section
+    'cta.title': 'Begin Your Journey Today',
+    'cta.subtitle': 'Join thousands who have found peace and purpose through mindfulness and meditation.',
+    'cta.button': 'Get Started Now',
+    'cta.secondary': 'Learn More',
+    
     // Newsletter
     'newsletter.title': 'Stay Connected',
     'newsletter.subtitle': 'Get weekly insights on mindfulness and spiritual growth.',
@@ -67,6 +83,22 @@ const translations = {
     'features.meditation.desc': 'निर्देशित ध्यान अभ्यास के माध्यम से आंतरिक शांति और स्पष्टता विकसित करें।',
     'features.wisdom': 'प्राचीन ज्ञान',
     'features.wisdom.desc': 'समकालीन जीवन के लिए अनुकूलित शाश्वत शिक्षाओं की खोज करें।',
+    
+    // Stats
+    'stats.students': 'सक्रिय छात्र',
+    'stats.courses': 'ध्यान पाठ्यक्रम',
+    'stats.teachers': 'विशेषज्ञ शिक्षक',
+    'stats.success': 'सफलता दर',
+    
+    // Testimonials
+    'testimonials.title': 'हमारे समुदाय का क्या कहना है',
+    'testimonials.subtitle': 'उन लोगों की वास्तविक कहानियां जिन्होंने हमारी प्रथाओं के माध्यम से अपने जीवन को बदल दिया है।',
+    
+    // CTA Section
+    'cta.title': 'आज ही अपनी यात्रा शुरू करें',
+    'cta.subtitle': 'हजारों लोगों के साथ जुड़ें जिन्होंने माइंडफुलनेस और ध्यान के माध्यम से शांति और उद्देश्य पाया है।',
+    'cta.button': 'अभी शुरू करें',
+    'cta.secondary': 'और जानें',
     
     // Newsletter
     'newsletter.title': 'जुड़े रहें',
