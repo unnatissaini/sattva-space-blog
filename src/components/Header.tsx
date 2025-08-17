@@ -14,7 +14,6 @@ const Header = () => {
   const navigation = [
     { name: "Home", href: "/" },
     { name: "Blog", href: "/blog" },
-    { name: "Categories", href: "/categories" },
     { name: "About", href: "/about" },
     { name: "Contact", href: "/contact" },
   ];
@@ -52,18 +51,8 @@ const Header = () => {
             ))}
           </div>
 
-          {/* Search Bar & Admin */}
-          <div className="hidden md:flex items-center space-x-4">
-            <div className="relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
-              <Input
-                type="text"
-                placeholder="Search articles..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-10 w-64 bg-muted/50 border-border focus:border-primary"
-              />
-            </div>
+          {/* Admin */}
+          <div className="hidden md:flex items-center">
             {user && (
               <Button asChild variant="ghost" size="sm">
                 <Link to="/admin">
@@ -102,16 +91,6 @@ const Header = () => {
                   {item.name}
                 </Link>
               ))}
-              <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
-                <Input
-                  type="text"
-                  placeholder="Search articles..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="pl-10 bg-muted/50 border-border focus:border-primary"
-                />
-              </div>
             </div>
           </div>
         )}
