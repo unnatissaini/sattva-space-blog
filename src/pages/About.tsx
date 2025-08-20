@@ -1,35 +1,38 @@
 import { Heart, Leaf, Users, BookOpen, Award, Globe } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const About = () => {
+  const { t } = useLanguage();
+  
   const values = [
     {
       icon: <Heart className="w-8 h-8 text-health" />,
-      title: "Compassionate Care",
-      description: "We approach wellness with empathy, understanding that every person's journey is unique and sacred."
+      title: t('about.values.compassion'),
+      description: t('about.values.compassion.desc')
     },
     {
       icon: <Leaf className="w-8 h-8 text-primary" />,
-      title: "Natural Wisdom",
-      description: "We honor traditional healing practices while embracing modern scientific understanding."
+      title: t('about.values.wisdom'),
+      description: t('about.values.wisdom.desc')
     },
     {
       icon: <Users className="w-8 h-8 text-fitness" />,
-      title: "Community Connection",
-      description: "Healing happens in community. We foster supportive connections and shared experiences."
+      title: t('about.values.community'),
+      description: t('about.values.community.desc')
     },
     {
       icon: <BookOpen className="w-8 h-8 text-lifestyle" />,
-      title: "Continuous Learning",
-      description: "We're committed to ongoing education and sharing evidence-based wellness practices."
+      title: t('about.values.learning'),
+      description: t('about.values.learning.desc')
     }
   ];
 
   const stats = [
-    { number: "10K+", label: "Community Members" },
-    { number: "500+", label: "Articles Published" },
-    { number: "50+", label: "Expert Contributors" },
-    { number: "25+", label: "Countries Reached" }
+    { number: "10K+", label: t('about.stats.members') },
+    { number: "500+", label: t('about.stats.articles') },
+    { number: "50+", label: t('about.stats.contributors') },
+    { number: "25+", label: t('about.stats.countries') }
   ];
 
   return (
@@ -38,12 +41,10 @@ const About = () => {
         {/* Hero Section */}
         <section className="text-center mb-16">
           <h1 className="text-4xl sm:text-5xl font-heading font-bold text-foreground mb-6">
-            About Sattva Space
+            {t('about.title')}
           </h1>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-            Sattva Space is a sanctuary for holistic wellness, where ancient wisdom meets modern science 
-            to nurture your mind, body, and spirit. We believe that true health encompasses more than 
-            just the absence of illness—it's about thriving in all aspects of life.
+            {t('about.subtitle')}
           </p>
         </section>
 
@@ -52,29 +53,27 @@ const About = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
               <h2 className="text-3xl font-heading font-bold text-foreground mb-6">
-                Our Mission
+                {t('about.mission')}
               </h2>
               <p className="text-muted-foreground mb-4 leading-relaxed">
-                In Sanskrit, "Sattva" represents purity, balance, and harmony—the perfect state of 
-                being where mind, body, and spirit exist in beautiful equilibrium. Our mission is 
-                to guide you toward this state through:
+                {t('about.mission.desc')}
               </p>
               <ul className="space-y-3 text-muted-foreground">
                 <li className="flex items-start gap-3">
                   <div className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0"></div>
-                  Evidence-based wellness content that honors both science and tradition
+                  {t('about.mission.point1')}
                 </li>
                 <li className="flex items-start gap-3">
                   <div className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0"></div>
-                  Practical tools and techniques for daily wellness practices
+                  {t('about.mission.point2')}
                 </li>
                 <li className="flex items-start gap-3">
                   <div className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0"></div>
-                  Natural remedies and holistic approaches to health challenges
+                  {t('about.mission.point3')}
                 </li>
                 <li className="flex items-start gap-3">
                   <div className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0"></div>
-                  A supportive community for sharing experiences and wisdom
+                  {t('about.mission.point4')}
                 </li>
               </ul>
             </div>
@@ -84,12 +83,10 @@ const About = () => {
                   <Award className="w-8 h-8 text-white" />
                 </div>
                 <h3 className="text-2xl font-heading font-bold text-foreground mb-4">
-                  Trusted Expertise
+                  {t('about.expertise')}
                 </h3>
                 <p className="text-muted-foreground">
-                  Our content is created and reviewed by certified wellness practitioners, 
-                  licensed healthcare providers, and experienced wellness coaches who are 
-                  passionate about holistic health.
+                  {t('about.expertise.desc')}
                 </p>
               </div>
             </div>
@@ -100,10 +97,10 @@ const About = () => {
         <section className="mb-16">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-heading font-bold text-foreground mb-4">
-              Our Values
+              {t('about.values')}
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              These core principles guide everything we do and every piece of content we create.
+              {t('about.values.subtitle')}
             </p>
           </div>
           
@@ -139,10 +136,10 @@ const About = () => {
             <CardContent className="p-8">
               <div className="text-center mb-8">
                 <h2 className="text-3xl font-heading font-bold mb-4">
-                  Growing Together
+                  {t('about.stats.title')}
                 </h2>
                 <p className="text-white/90 max-w-2xl mx-auto">
-                  Join thousands of wellness enthusiasts on their journey to better health and inner peace.
+                  {t('about.stats.subtitle')}
                 </p>
               </div>
               
@@ -166,25 +163,17 @@ const About = () => {
         <section className="mb-16">
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="text-3xl font-heading font-bold text-foreground mb-6">
-              Our Story
+              {t('about.story')}
             </h2>
             <div className="text-muted-foreground leading-relaxed space-y-4">
               <p>
-                Sattva Space was born from a simple realization: in our fast-paced, technology-driven 
-                world, we had lost touch with the fundamental principles of holistic health that have 
-                sustained human wellness for millennia.
+                {t('about.story.p1')}
               </p>
               <p>
-                Founded by a team of wellness practitioners, researchers, and health enthusiasts, 
-                we set out to create a space where ancient wisdom could meet modern science, where 
-                natural remedies could complement conventional medicine, and where community support 
-                could accelerate individual healing.
+                {t('about.story.p2')}
               </p>
               <p>
-                Today, Sattva Space serves as a trusted resource for thousands of people worldwide 
-                who are seeking a more balanced, mindful approach to health and wellness. We continue 
-                to grow and evolve, always staying true to our core mission of nurturing mind, body, 
-                and spirit.
+                {t('about.story.p3')}
               </p>
             </div>
           </div>
@@ -196,20 +185,19 @@ const About = () => {
             <CardContent className="p-8">
               <Globe className="w-12 h-12 text-primary mx-auto mb-6" />
               <h2 className="text-2xl font-heading font-bold text-foreground mb-4">
-                Join Our Community
+                {t('about.join')}
               </h2>
               <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
-                Whether you're just beginning your wellness journey or looking to deepen your practice, 
-                you'll find a welcoming community and valuable resources here at Sattva Space.
+                {t('about.join.desc')}
               </p>
               <div className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
                 <input
                   type="email"
-                  placeholder="Enter your email address"
+                  placeholder={t('about.join.placeholder')}
                   className="flex-1 px-4 py-3 rounded-lg border border-border bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
                 />
                 <button className="bg-gradient-hero hover:opacity-90 text-white px-6 py-3 rounded-lg font-medium transition-opacity">
-                  Join Us
+                  {t('about.join.button')}
                 </button>
               </div>
             </CardContent>

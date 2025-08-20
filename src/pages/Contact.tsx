@@ -9,6 +9,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { supabase } from '@/lib/supabase'
 import { toast } from 'sonner'
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const contactSchema = z.object({
   name: z.string().min(1, 'Name is required'),
@@ -20,6 +21,7 @@ const contactSchema = z.object({
 type ContactFormData = z.infer<typeof contactSchema>
 
 const Contact = () => {
+  const { t } = useLanguage();
   const [isLoading, setIsLoading] = useState(false)
   
   const {
@@ -57,21 +59,21 @@ const Contact = () => {
   const contactInfo = [
     {
       icon: <Mail className="w-6 h-6 text-primary" />,
-      title: "Email Us",
-      content: "hello@sattvaspace.com",
-      description: "Send us an email anytime"
+      title: t('contact.email'),
+      content: t('contact.email.content'),
+      description: t('contact.email.desc')
     },
     {
       icon: <MessageCircle className="w-6 h-6 text-fitness" />,
-      title: "Live Chat",
-      content: "Available 9 AM - 6 PM PST",
-      description: "Get instant answers to your questions"
+      title: t('contact.chat'),
+      content: t('contact.chat.content'),
+      description: t('contact.chat.desc')
     },
     {
       icon: <Clock className="w-6 h-6 text-lifestyle" />,
-      title: "Response Time",
-      content: "Within 24 hours",
-      description: "We typically respond the same day"
+      title: t('contact.response'),
+      content: t('contact.response.content'),
+      description: t('contact.response.desc')
     }
   ];
 
@@ -81,11 +83,10 @@ const Contact = () => {
         {/* Header */}
         <div className="text-center mb-12">
           <h1 className="text-4xl sm:text-5xl font-heading font-bold text-foreground mb-4">
-            Get in Touch
+            {t('contact.title')}
           </h1>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Have a question about wellness, need guidance on your journey, or want to collaborate? 
-            We'd love to hear from you.
+            {t('contact.subtitle')}
           </p>
         </div>
 
@@ -95,11 +96,10 @@ const Contact = () => {
             <div className="space-y-6">
               <div>
                 <h2 className="text-2xl font-heading font-bold text-foreground mb-4">
-                  Let's Connect
+                  {t('contact.connect')}
                 </h2>
                 <p className="text-muted-foreground mb-6">
-                  Whether you're seeking wellness advice, have feedback about our content, 
-                  or want to explore partnership opportunities, we're here to help.
+                  {t('contact.connect.desc')}
                 </p>
               </div>
 
@@ -130,10 +130,10 @@ const Contact = () => {
               <Card className="bg-gradient-wellness border-border/50">
                 <CardContent className="p-6">
                   <h3 className="font-heading font-semibold text-foreground mb-4">
-                    Follow Our Journey
+                    {t('contact.follow')}
                   </h3>
                   <p className="text-muted-foreground text-sm mb-4">
-                    Stay connected with our wellness community on social media for daily inspiration and tips.
+                    {t('contact.follow.desc')}
                   </p>
                   <div className="flex gap-3">
                     <Button variant="outline" size="sm" className="hover:bg-primary hover:text-white">
@@ -156,7 +156,7 @@ const Contact = () => {
             <Card className="border-border/50">
               <CardHeader>
                 <CardTitle className="text-2xl font-heading text-foreground">
-                  Send Us a Message
+                  {t('contact.form.title')}
                 </CardTitle>
               </CardHeader>
               <CardContent className="p-6">
@@ -164,11 +164,11 @@ const Contact = () => {
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
                       <label htmlFor="name" className="block text-sm font-medium text-foreground mb-2">
-                        Full Name *
+                        {t('contact.form.name')} *
                       </label>
                       <Input
                         id="name"
-                        placeholder="Your full name"
+                        placeholder={t('contact.form.name.placeholder')}
                         {...register('name')}
                         className={`bg-background border-border focus:border-primary ${
                           errors.name ? 'border-destructive' : ''
@@ -180,12 +180,12 @@ const Contact = () => {
                     </div>
                     <div>
                       <label htmlFor="email" className="block text-sm font-medium text-foreground mb-2">
-                        Email Address *
+                        {t('contact.form.email')} *
                       </label>
                       <Input
                         id="email"
                         type="email"
-                        placeholder="your.email@example.com"
+                        placeholder={t('contact.form.email.placeholder')}
                         {...register('email')}
                         className={`bg-background border-border focus:border-primary ${
                           errors.email ? 'border-destructive' : ''
@@ -199,11 +199,11 @@ const Contact = () => {
 
                   <div>
                     <label htmlFor="subject" className="block text-sm font-medium text-foreground mb-2">
-                      Subject *
+                      {t('contact.form.subject')} *
                     </label>
                     <Input
                       id="subject"
-                      placeholder="What's this about?"
+                      placeholder={t('contact.form.subject.placeholder')}
                       {...register('subject')}
                       className={`bg-background border-border focus:border-primary ${
                         errors.subject ? 'border-destructive' : ''
@@ -216,11 +216,11 @@ const Contact = () => {
 
                   <div>
                     <label htmlFor="message" className="block text-sm font-medium text-foreground mb-2">
-                      Message *
+                      {t('contact.form.message')} *
                     </label>
                     <Textarea
                       id="message"
-                      placeholder="Tell us how we can help you on your wellness journey..."
+                      placeholder={t('contact.form.message.placeholder')}
                       rows={6}
                       {...register('message')}
                       className={`bg-background border-border focus:border-primary resize-none ${
@@ -241,17 +241,17 @@ const Contact = () => {
                       {isLoading ? (
                         <>
                           <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                          Sending...
+                          {t('contact.form.sending')}
                         </>
                       ) : (
                         <>
-                          Send Message
+                          {t('contact.form.send')}
                           <Send className="w-4 h-4 ml-2" />
                         </>
                       )}
                     </Button>
                     <p className="text-sm text-muted-foreground">
-                      * Required fields. We respect your privacy and will never share your information.
+                      {t('contact.form.required')}
                     </p>
                   </div>
                 </form>
@@ -262,31 +262,31 @@ const Contact = () => {
             <Card className="mt-8 bg-muted/30 border-border/50">
               <CardContent className="p-6">
                 <h3 className="font-heading font-semibold text-foreground mb-4">
-                  Frequently Asked Questions
+                  {t('contact.faq')}
                 </h3>
                 <div className="space-y-4">
                   <div>
                     <h4 className="font-medium text-foreground mb-1">
-                      How quickly do you respond to messages?
+                      {t('contact.faq.q1')}
                     </h4>
                     <p className="text-sm text-muted-foreground">
-                      We typically respond within 24 hours, often the same day during business hours.
+                      {t('contact.faq.a1')}
                     </p>
                   </div>
                   <div>
                     <h4 className="font-medium text-foreground mb-1">
-                      Can you provide personalized health advice?
+                      {t('contact.faq.q2')}
                     </h4>
                     <p className="text-sm text-muted-foreground">
-                      While we can offer general wellness guidance, we always recommend consulting with qualified healthcare providers for personalized medical advice.
+                      {t('contact.faq.a2')}
                     </p>
                   </div>
                   <div>
                     <h4 className="font-medium text-foreground mb-1">
-                      Do you accept guest article submissions?
+                      {t('contact.faq.q3')}
                     </h4>
                     <p className="text-sm text-muted-foreground">
-                      Yes! We welcome submissions from qualified wellness practitioners. Please include your credentials and article outline in your message.
+                      {t('contact.faq.a3')}
                     </p>
                   </div>
                 </div>

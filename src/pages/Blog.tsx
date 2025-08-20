@@ -5,8 +5,10 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import BlogCard from "@/components/BlogCard";
 import { blogPosts } from "@/data/blogPosts";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const Blog = () => {
+  const { t } = useLanguage();
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
 
@@ -43,10 +45,10 @@ const Blog = () => {
         {/* Header */}
         <div className="text-center mb-12">
           <h1 className="text-4xl sm:text-5xl font-heading font-bold text-foreground mb-4">
-            Wellness Articles
+            {t('blog.title')}
           </h1>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Discover insights, tips, and practices for your holistic wellness journey
+            {t('blog.subtitle')}
           </p>
         </div>
 
@@ -57,7 +59,7 @@ const Blog = () => {
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
               <Input
                 type="text"
-                placeholder="Search articles, topics, or tags..."
+                placeholder={t('blog.search.placeholder')}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="pl-10 bg-background border-border focus:border-primary"
@@ -65,7 +67,7 @@ const Blog = () => {
             </div>
             <Button variant="outline" className="sm:w-auto w-full">
               <Filter className="w-4 h-4 mr-2" />
-              Filter
+              {t('blog.filter')}
             </Button>
           </div>
 
@@ -82,7 +84,11 @@ const Blog = () => {
                 }`}
                 onClick={() => setSelectedCategory(category)}
               >
-                {category}
+                {category === "All" ? t('blog.categories.all') : 
+                 category === "Health" ? t('blog.categories.health') :
+                 category === "Fitness" ? t('blog.categories.fitness') :
+                 category === "Remedies" ? t('blog.categories.remedies') :
+                 category === "Lifestyle" ? t('blog.categories.lifestyle') : category}
               </Badge>
             ))}
           </div>
@@ -91,9 +97,13 @@ const Blog = () => {
         {/* Results Count */}
         <div className="mb-6">
           <p className="text-muted-foreground">
-            {filteredPosts.length} article{filteredPosts.length !== 1 ? 's' : ''} found
-            {selectedCategory !== "All" && ` in ${selectedCategory}`}
-            {searchQuery && ` for "${searchQuery}"`}
+            {filteredPosts.length} {filteredPosts.length === 1 ? t('blog.results') : t('blog.results.plural')} {t('blog.results.found')}
+            {selectedCategory !== "All" && ` ${t('blog.results.in')} ${selectedCategory === "All" ? t('blog.categories.all') : 
+                 selectedCategory === "Health" ? t('blog.categories.health') :
+                 selectedCategory === "Fitness" ? t('blog.categories.fitness') :
+                 selectedCategory === "Remedies" ? t('blog.categories.remedies') :
+                 selectedCategory === "Lifestyle" ? t('blog.categories.lifestyle') : selectedCategory}`}
+            {searchQuery && ` ${t('blog.results.for')} "${searchQuery}"`}
           </p>
         </div>
 
@@ -107,7 +117,7 @@ const Blog = () => {
         ) : (
           <div className="text-center py-12">
             <p className="text-muted-foreground text-lg mb-4">
-              No articles found matching your criteria.
+              {t('blog.no.results')}
             </p>
             <Button
               variant="outline"
@@ -116,7 +126,7 @@ const Blog = () => {
                 setSelectedCategory("All");
               }}
             >
-              Clear filters
+              {t('blog.clear.filters')}
             </Button>
           </div>
         )}
