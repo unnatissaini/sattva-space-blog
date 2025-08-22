@@ -1,22 +1,47 @@
 export interface BlogPost {
   id: string;
-  title: string;
-  excerpt: string;
-  content: string;
-  category: string;
-  readTime: string;
+  title: {
+    en: string;
+    hi: string;
+  };
+  excerpt: {
+    en: string;
+    hi: string;
+  };
+  content: {
+    en: string;
+    hi: string;
+  };
+  category: {
+    en: string;
+    hi: string;
+  };
+  readTime: {
+    en: string;
+    hi: string;
+  };
   date: string;
   image: string;
   author: string;
-  tags: string[];
+  tags: {
+    en: string[];
+    hi: string[];
+  };
 }
 
 export const blogPosts: BlogPost[] = [
   {
     id: "morning-meditation-guide",
-    title: "The Complete Guide to Morning Meditation: Transform Your Day",
-    excerpt: "Discover how a simple 10-minute morning meditation practice can enhance your mental clarity, reduce stress, and set a positive tone for your entire day.",
-    content: `# The Complete Guide to Morning Meditation: Transform Your Day
+    title: {
+      en: "The Complete Guide to Morning Meditation: Transform Your Day",
+      hi: "सुबह के ध्यान की संपूर्ण गाइड: अपने दिन को बदलें"
+    },
+    excerpt: {
+      en: "Discover how a simple 10-minute morning meditation practice can enhance your mental clarity, reduce stress, and set a positive tone for your entire day.",
+      hi: "जानें कि कैसे एक सरल 10 मिनट का सुबह का ध्यान अभ्यास आपकी मानसिक स्पष्टता बढ़ा सकता है, तनाव कम कर सकता है, और आपके पूरे दिन के लिए सकारात्मक माहौल बना सकता है।"
+    },
+    content: {
+      en: `# The Complete Guide to Morning Meditation: Transform Your Day
 
 Starting your day with meditation is one of the most powerful habits you can develop for your mental, emotional, and physical well-being. In our fast-paced world, taking just 10 minutes each morning to center yourself can dramatically improve your quality of life.
 
@@ -71,18 +96,90 @@ Research shows that regular meditation practice:
 - Lowers blood pressure and reduces inflammation
 
 Start tomorrow morning. Your future self will thank you.`,
-    category: "Health",
-    readTime: "8 min read",
+      hi: `# सुबह के ध्यान की संपूर्ण गाइड: अपने दिन को बदलें
+
+अपने दिन की शुरुआत ध्यान के साथ करना आपके मानसिक, भावनात्मक और शारीरिक कल्याण के लिए सबसे शक्तिशाली आदतों में से एक है। हमारी तेज़-तर्रार दुनिया में, हर सुबह केवल 10 मिनट खुद को केंद्रित करना आपके जीवन की गुणवत्ता में नाटकीय रूप से सुधार ला सकता है।
+
+## सुबह का ध्यान क्यों काम करता है
+
+सुबह का ध्यान इसलिए काम करता है क्योंकि यह आपको अनुमति देता है:
+- दिन के लिए एक शांत, केंद्रित इरादा निर्धारित करना
+- कॉर्टिसोल के स्तर को प्राकृतिक रूप से कम करना
+- भावनात्मक नियंत्रण में सुधार करना
+- संज्ञानात्मक कार्यप्रणाली को बढ़ाना
+- दैनिक तनावों के प्रति प्रतिरोधक क्षमता बनाना
+
+## सरल 5-चरणीय सुबह ध्यान अभ्यास
+
+### चरण 1: अपना स्थान बनाएं
+अपने घर में एक शांत कोना खोजें जहाँ आपको परेशान न किया जाए। इसे विस्तृत होने की आवश्यकता नहीं है - बस एक आरामदायक स्थान जहाँ आप सीधे बैठ सकें।
+
+### चरण 2: अपना टाइमर सेट करें
+केवल 5-10 मिनट से शुरुआत करें। निरंतरता अवधि से अधिक महत्वपूर्ण है।
+
+### चरण 3: अपनी सांस पर ध्यान दें
+अपनी आंखें बंद करें और अपने प्राकृतिक सांस लेने के पैटर्न पर ध्यान दें। इसे बदलने की कोशिश न करें, बस देखें।
+
+### चरण 4: अपने विचारों को देखें
+जब विचार आएं (और वे आएंगे), धीरे से उन्हें स्वीकार करें और अपना ध्यान वापस अपनी सांस पर लौटाएं।
+
+### चरण 5: अपना इरादा निर्धारित करें
+अपनी आंखें खोलने से पहले, अपने दिन के लिए एक सकारात्मक इरादा निर्धारित करें।
+
+## सामान्य चुनौतियां और समाधान
+
+**"मेरे पास समय नहीं है"** - केवल 3 मिनट से शुरुआत करें। हर किसी के पास 3 मिनट होते हैं।
+
+**"मेरा मन बहुत व्यस्त है"** - यही कारण है कि आपको ध्यान की आवश्यकता है। व्यस्त मन को इस अभ्यास से सबसे अधिक फायदा होता है।
+
+**"मैं भूल जाता हूं"** - इसे किसी मौजूदा आदत से जोड़ें, जैसे सुबह की कॉफी पीना।
+
+## अपना अभ्यास बनाना
+
+सप्ताह 1-2: प्रतिदिन 5 मिनट
+सप्ताह 3-4: प्रतिदिन 7 मिनट
+सप्ताह 5+: प्रतिदिन 10 मिनट
+
+याद रखें, निरंतरता पूर्णता से बेहतर है। सप्ताह में एक बार 30 मिनट से बेहतर है रोज़ाना 5 मिनट ध्यान करना।
+
+## सुबह के ध्यान के पीछे का विज्ञान
+
+अनुसंधान दिखाता है कि नियमित ध्यान अभ्यास:
+- सीखने और स्मृति से जुड़े क्षेत्रों में ग्रे मैटर घनत्व बढ़ाता है
+- एमिग्डाला (मस्तिष्क के डर केंद्र) में गतिविधि कम करता है
+- ध्यान अवधि और एकाग्रता में सुधार करता है
+- रक्तचाप कम करता है और सूजन कम करता है
+
+कल सुबह से शुरुआत करें। आपका भविष्य का स्वयं आपको धन्यवाद देगा।`
+    },
+    category: {
+      en: "Health",
+      hi: "स्वास्थ्य"
+    },
+    readTime: {
+      en: "8 min read",
+      hi: "8 मिनट पढ़ें"
+    },
     date: "Dec 15, 2024",
     image: "/placeholder.svg",
     author: "Sarah Chen",
-    tags: ["meditation", "mindfulness", "morning routine", "stress relief"]
+    tags: {
+      en: ["meditation", "mindfulness", "morning routine", "stress relief"],
+      hi: ["ध्यान", "सचेतना", "सुबह की दिनचर्या", "तनाव मुक्ति"]
+    }
   },
   {
     id: "natural-remedies-immune-system",
-    title: "5 Natural Remedies to Boost Your Immune System This Winter",
-    excerpt: "Strengthen your body's natural defenses with these time-tested, science-backed natural remedies that work in harmony with your immune system.",
-    content: `# 5 Natural Remedies to Boost Your Immune System This Winter
+    title: {
+      en: "5 Natural Remedies to Boost Your Immune System This Winter",
+      hi: "इस सर्दी में अपनी प्रतिरक्षा प्रणाली को बढ़ावा देने के लिए 5 प्राकृतिक उपचार"
+    },
+    excerpt: {
+      en: "Strengthen your body's natural defenses with these time-tested, science-backed natural remedies that work in harmony with your immune system.",
+      hi: "इन समय-परीक्षित, विज्ञान-समर्थित प्राकृतिक उपचारों के साथ अपने शरीर की प्राकृतिक सुरक्षा को मजबूत करें जो आपकी प्रतिरक्षा प्रणाली के साथ तालमेल में काम करते हैं।"
+    },
+    content: {
+      en: `# 5 Natural Remedies to Boost Your Immune System This Winter
 
 As the seasons change, supporting our immune system becomes more important than ever. While there's no magic bullet for perfect health, these natural remedies can help strengthen your body's defenses.
 
@@ -133,430 +230,72 @@ A healthy gut microbiome supports overall immune function. Include:
 - Maintain good hygiene practices alongside natural remedies
 
 Remember, the best immune support comes from adequate sleep, regular exercise, stress management, and a nutrient-rich diet.`,
-    category: "Remedies",
-    readTime: "6 min read",
+      hi: `# इस सर्दी में अपनी प्रतिरक्षा प्रणाली को बढ़ावा देने के लिए 5 प्राकृतिक उपचार
+
+जैसे-जैसे मौसम बदलता है, हमारी प्रतिरक्षा प्रणाली का समर्थन करना पहले से कहीं अधिक महत्वपूर्ण हो जाता है। हालांकि पूर्ण स्वास्थ्य के लिए कोई जादुई गोली नहीं है, ये प्राकृतिक उपचार आपके शरीर की सुरक्षा को मजबूत बनाने में मदद कर सकते हैं।
+
+## 1. एल्डरबेरी सिरप
+
+एल्डरबेरी एंटीऑक्सिडेंट और विटामिन से भरपूर होते हैं जो प्रतिरक्षा कार्यप्रणाली को बढ़ा सकते हैं। अध्ययन बताते हैं कि एल्डरबेरी सर्दी और फ्लू के लक्षणों की अवधि और गंभीरता को कम कर सकता है।
+
+**उपयोग कैसे करें:** सर्दी के मौसम में प्रतिदिन 1-2 चम्मच लें, या पैकेज निर्देशों का पालन करें।
+
+## 2. हल्दी वाला गोल्डन मिल्क
+
+यह गर्म पेय हल्दी के सूजन-रोधी गुणों को अन्य प्रतिरक्षा-सहायक मसालों के साथ जोड़ता है।
+
+**नुस्खा:**
+- 1 कप प्लांट मिल्क
+- 1 चम्मच हल्दी पाउडर
+- 1/2 चम्मच अदरक पाउडर
+- एक चुटकी काली मिर्च
+- 1 चम्मच शहद
+
+धीरे से गर्म करें और सोने से पहले लें।
+
+## 3. जिंक युक्त खाद्य पदार्थ
+
+जिंक प्रतिरक्षा कोशिका के कार्य के लिए महत्वपूर्ण है। अपने आहार में इन खाद्य पदार्थों को शामिल करें:
+- कद्दू के बीज
+- चना
+- काजू
+- डार्क चॉकलेट
+
+## 4. इचिनेसिया चाय
+
+यह पारंपरिक जड़ी-बूटी सदियों से प्रतिरक्षा स्वास्थ्य का समर्थन करने के लिए उपयोग की जाती है। अनुसंधान बताता है कि यह सर्दी पकड़ने के जोखिम को कम करने में मदद कर सकता है।
+
+## 5. प्रोबायोटिक खाद्य पदार्थ
+
+एक स्वस्थ आंत माइक्रोबायोम समग्र प्रतिरक्षा कार्यप्रणाली का समर्थन करता है। शामिल करें:
+- जीवित संस्कृतियों के साथ दही
+- केफिर
+- सॉकरक्राउट
+- किमची
+
+## महत्वपूर्ण बातें
+
+- ये उपचार स्वस्थ जीवनशैली के हिस्से के रूप में सबसे अच्छा काम करते हैं
+- नए सप्लीमेंट शुरू करने से पहले हमेशा स्वास्थ्य सेवा प्रदाताओं से सलाह लें
+- त्वरित समाधान के बजाय निरंतरता पर ध्यान दें
+- प्राकृतिक उपचारों के साथ अच्छी स्वच्छता प्रथाओं को बनाए रखें
+
+याद रखें, सबसे अच्छा प्रतिरक्षा समर्थन पर्याप्त नींद, नियमित व्यायाम, तनाव प्रबंधन, और पोषक तत्वों से भरपूर आहार से आता है।`
+    },
+    category: {
+      en: "Remedies",
+      hi: "उपचार"
+    },
+    readTime: {
+      en: "6 min read",
+      hi: "6 मिनट पढ़ें"
+    },
     date: "Dec 12, 2024",
     image: "/placeholder.svg",
     author: "Dr. Maria Rodriguez",
-    tags: ["immune system", "natural remedies", "winter health", "nutrition"]
-  },
-  {
-    id: "yoga-flexibility-beginners",
-    title: "Yoga for Flexibility: A 30-Day Beginner's Journey",
-    excerpt: "Transform your flexibility and find inner peace with this gentle 30-day yoga program designed specifically for beginners who want to improve their range of motion.",
-    content: `# Yoga for Flexibility: A 30-Day Beginner's Journey
-
-Whether you're sitting at a desk all day or just feeling stiff and tight, this 30-day yoga journey will help you build flexibility while cultivating mindfulness and inner peace.
-
-## Why Flexibility Matters
-
-Improved flexibility:
-- Reduces risk of injury
-- Alleviates muscle tension
-- Improves posture
-- Enhances circulation
-- Reduces stress and anxiety
-
-## Week 1: Foundation Building
-
-Focus on basic poses and proper alignment:
-
-### Day 1-3: Sun Salutations
-Learn the foundational flow that warms up your entire body.
-
-### Day 4-7: Standing Poses
-Build strength while improving flexibility in your legs and hips.
-
-## Week 2: Opening Up
-
-### Day 8-14: Hip Openers
-Modern life tightens our hips. These poses will help release that tension.
-
-Key poses:
-- Pigeon pose
-- Butterfly pose
-- Happy baby pose
-
-## Week 3: Spine and Shoulders
-
-### Day 15-21: Backbends and Twists
-Counteract forward posture and improve spinal mobility.
-
-## Week 4: Integration
-
-### Day 22-30: Flowing Sequences
-Combine everything you've learned into smooth, meditative flows.
-
-## Daily Practice Tips
-
-**Morning (10 minutes):** Gentle warm-up sequence
-**Evening (15 minutes):** Deeper stretches and relaxation
-
-## Modifications for Everyone
-
-- Use props (blocks, straps, bolsters)
-- Never force a pose
-- Listen to your body
-- Focus on breath over depth
-
-## Tracking Your Progress
-
-Take photos on Day 1, 15, and 30 to see your improvement. More importantly, notice how you feel – increased energy, better sleep, and reduced stress.
-
-## Beyond 30 Days
-
-After completing this journey, consider:
-- Joining a local yoga class
-- Exploring different yoga styles
-- Developing a longer personal practice
-
-Remember: Flexibility is not about touching your toes, it's about what you learn on the way down.`,
-    category: "Fitness",
-    readTime: "7 min read",
-    date: "Dec 10, 2024",
-    image: "/placeholder.svg",
-    author: "Elena Vasquez",
-    tags: ["yoga", "flexibility", "beginners", "30-day challenge"]
-  },
-  {
-    id: "mindful-eating-habits",
-    title: "Mindful Eating: How to Transform Your Relationship with Food",
-    excerpt: "Learn the art of mindful eating to improve digestion, enhance satisfaction, and develop a healthier relationship with food that goes beyond diet culture.",
-    content: `# Mindful Eating: How to Transform Your Relationship with Food
-
-In our fast-paced world, we often eat on autopilot – scrolling through phones, watching TV, or rushing between meetings. Mindful eating offers a different approach that can transform not just what we eat, but how we experience food.
-
-## What is Mindful Eating?
-
-Mindful eating is the practice of paying full attention to the experience of eating and drinking. It involves:
-- Eating slowly and without distraction
-- Listening to physical hunger cues
-- Distinguishing between true hunger and non-hunger triggers
-- Engaging your senses by noticing colors, smells, sounds, textures, and flavors
-- Learning to cope with guilt and anxiety about food
-
-## The Benefits
-
-Research shows mindful eating can:
-- Improve digestion
-- Reduce overeating
-- Enhance meal satisfaction
-- Lower stress around food
-- Support healthy weight management
-- Improve relationship with food
-
-## 7 Steps to Mindful Eating
-
-### 1. Eliminate Distractions
-Put away phones, turn off the TV, and focus solely on your meal.
-
-### 2. Start with Gratitude
-Take a moment to appreciate where your food came from and the effort that brought it to your plate.
-
-### 3. Engage Your Senses
-Notice the colors, textures, aromas, and sounds of your food before taking the first bite.
-
-### 4. Eat Slowly
-Put down your utensils between bites. Chew thoroughly and savor each bite.
-
-### 5. Check In with Hunger
-Pause halfway through your meal to assess your hunger and fullness levels.
-
-### 6. Notice Flavors
-Pay attention to how tastes change throughout the meal and how different foods interact.
-
-### 7. End with Reflection
-After eating, take a moment to notice how you feel physically and emotionally.
-
-## Common Challenges
-
-**"I don't have time"** - Start with one mindful bite per meal, then gradually increase.
-
-**"I forget"** - Set a phone reminder or place a note near your eating area.
-
-**"It feels weird"** - Like any new habit, it takes time. Be patient with yourself.
-
-## Mindful Eating vs. Diet Culture
-
-Unlike restrictive diets, mindful eating:
-- Focuses on how you eat, not what you eat
-- Honors your body's wisdom
-- Reduces food guilt and shame
-- Promotes food freedom
-- Supports sustainable habits
-
-## Quick Mindful Eating Exercise
-
-Try this with your next snack:
-1. Hold the food in your hand
-2. Look at it closely - notice colors, textures, shape
-3. Smell it - what do you notice?
-4. Take one small bite
-5. Chew slowly, noticing flavors and textures
-6. Swallow mindfully
-7. Pause before the next bite
-
-## Building Your Practice
-
-Week 1: One mindful bite per meal
-Week 2: First five minutes of each meal mindfully
-Week 3: One completely mindful meal per day
-Week 4: Apply mindful principles to all eating
-
-Remember, mindful eating is a practice, not perfection. Be patient and compassionate with yourself as you develop this life-changing skill.`,
-    category: "Lifestyle",
-    readTime: "9 min read",
-    date: "Dec 8, 2024",
-    image: "/placeholder.svg",
-    author: "James Thompson",
-    tags: ["mindful eating", "nutrition", "wellness", "lifestyle"]
-  },
-  {
-    id: "sleep-hygiene-better-rest",
-    title: "Sleep Hygiene: 10 Science-Backed Tips for Better Rest",
-    excerpt: "Improve your sleep quality with these evidence-based strategies that will help you fall asleep faster, sleep deeper, and wake up more refreshed.",
-    content: `# Sleep Hygiene: 10 Science-Backed Tips for Better Rest
-
-Quality sleep is fundamental to our physical health, mental well-being, and overall quality of life. Yet many of us struggle with getting the restorative sleep we need. Here are 10 science-backed strategies to improve your sleep hygiene.
-
-## Why Sleep Matters
-
-Good sleep:
-- Strengthens immune function
-- Improves memory consolidation
-- Regulates hormones
-- Supports emotional regulation
-- Enhances physical recovery
-- Reduces risk of chronic diseases
-
-## 10 Evidence-Based Sleep Tips
-
-### 1. Maintain a Consistent Sleep Schedule
-Go to bed and wake up at the same time every day, even on weekends. This helps regulate your circadian rhythm.
-
-### 2. Create a Sleep-Friendly Environment
-- Keep your bedroom cool (65-68°F)
-- Make it as dark as possible
-- Minimize noise or use white noise
-- Invest in a comfortable mattress and pillows
-
-### 3. Limit Screen Time Before Bed
-Blue light from devices can interfere with melatonin production. Stop using screens 1-2 hours before bedtime.
-
-### 4. Watch Your Caffeine Intake
-Avoid caffeine 6-8 hours before bedtime. Remember that caffeine is found in chocolate, tea, and some medications too.
-
-### 5. Get Morning Sunlight
-Expose yourself to bright light within 30 minutes of waking to help regulate your circadian rhythm.
-
-### 6. Exercise Regularly (But Not Too Late)
-Regular physical activity improves sleep quality, but avoid vigorous exercise within 3-4 hours of bedtime.
-
-### 7. Mind Your Evening Meals
-- Avoid large meals 2-3 hours before bed
-- Limit alcohol, which can disrupt sleep cycles
-- Consider a light, sleep-promoting snack if hungry
-
-### 8. Develop a Bedtime Routine
-Create a 30-60 minute wind-down routine:
-- Gentle stretching or yoga
-- Reading
-- Meditation or deep breathing
-- Warm bath or shower
-
-### 9. Manage Stress and Worry
-Practice relaxation techniques:
-- Progressive muscle relaxation
-- Mindfulness meditation
-- Journaling to clear your mind
-- Gratitude practice
-
-### 10. Know When to Seek Help
-Consult a healthcare provider if you experience:
-- Chronic insomnia
-- Loud snoring or breathing interruptions
-- Excessive daytime sleepiness
-- Restless legs or frequent movement during sleep
-
-## The 3-2-1 Rule
-
-3 hours before bed: No more large meals
-2 hours before bed: No more work
-1 hour before bed: No more screens
-
-## Creating Your Personal Sleep Sanctuary
-
-Transform your bedroom into a sleep haven:
-- Use blackout curtains or an eye mask
-- Keep the room cool and well-ventilated
-- Remove electronic devices
-- Add calming scents like lavender
-- Use comfortable, breathable bedding
-
-## Tracking Your Progress
-
-Consider keeping a sleep diary for 1-2 weeks:
-- Bedtime and wake time
-- How long it took to fall asleep
-- Number of nighttime awakenings
-- Morning energy levels
-- Daily caffeine and alcohol intake
-
-## Quick Sleep Fixes
-
-If you can't fall asleep:
-- Try the 4-7-8 breathing technique
-- Practice progressive muscle relaxation
-- Get up and do a quiet activity until sleepy
-- Avoid checking the clock repeatedly
-
-Remember, improving sleep hygiene takes time and consistency. Start with 1-2 changes and gradually build your perfect sleep routine.`,
-    category: "Health",
-    readTime: "8 min read",
-    date: "Dec 5, 2024",
-    image: "/placeholder.svg",
-    author: "Dr. Michael Chang",
-    tags: ["sleep", "health", "wellness", "science-backed"]
-  },
-  {
-    id: "herbs-stress-relief",
-    title: "Adaptogenic Herbs for Natural Stress Relief",
-    excerpt: "Discover the power of adaptogenic herbs like ashwagandha, rhodiola, and holy basil to help your body better manage stress naturally.",
-    content: `# Adaptogenic Herbs for Natural Stress Relief
-
-In our modern world, chronic stress has become a silent epidemic affecting millions. While we can't eliminate all stressors, we can support our body's ability to adapt and respond more effectively. Enter adaptogenic herbs – nature's stress-busters that have been used for centuries to promote resilience and balance.
-
-## What Are Adaptogens?
-
-Adaptogens are a unique class of herbs that help the body adapt to physical, chemical, and biological stress. They work by supporting the hypothalamic-pituitary-adrenal (HPA) axis, which governs our stress response.
-
-Key characteristics of adaptogens:
-- Non-toxic in normal doses
-- Help the body adapt to stress
-- Support normal physiological function
-- Provide energy without stimulation
-
-## Top 5 Adaptogenic Herbs
-
-### 1. Ashwagandha (Withania somnifera)
-**Benefits:**
-- Reduces cortisol levels
-- Improves stress tolerance
-- Supports healthy sleep
-- May boost energy levels
-
-**How to use:** 300-600mg daily, preferably with meals
-
-### 2. Rhodiola (Rhodiola rosea)
-**Benefits:**
-- Enhances mental performance under stress
-- Reduces fatigue
-- Supports mood balance
-- May improve exercise performance
-
-**How to use:** 200-400mg daily, best taken on an empty stomach
-
-### 3. Holy Basil (Ocimum sanctum)
-**Benefits:**
-- Promotes emotional balance
-- Supports healthy cortisol rhythm
-- May improve focus and clarity
-- Traditionally used for spiritual practices
-
-**How to use:** Tea form (1-2 cups daily) or 300-600mg in capsules
-
-### 4. Schisandra (Schisandra chinensis)
-**Benefits:**
-- Supports liver health
-- Enhances mental clarity
-- May improve physical endurance
-- Promotes skin health
-
-**How to use:** 500-1000mg daily or as a tea
-
-### 5. Reishi Mushroom (Ganoderma lucidum)
-**Benefits:**
-- Promotes calm energy
-- Supports immune function
-- May improve sleep quality
-- Traditionally called the "mushroom of immortality"
-
-**How to use:** 1-3g daily in powder or extract form
-
-## How to Incorporate Adaptogens
-
-### Start Slowly
-Begin with one adaptogen for 2-3 weeks before adding another. This helps you understand how each affects your body.
-
-### Timing Matters
-- Energizing adaptogens (rhodiola): Take in the morning
-- Calming adaptogens (ashwagandha): Take in the evening
-- Neutral adaptogens (holy basil): Can be taken anytime
-
-### Cycling
-Consider taking breaks every 6-8 weeks to prevent your body from becoming too accustomed to the herbs.
-
-## Adaptogen Stress-Relief Recipes
-
-### Morning Energy Blend
-- 1 tsp rhodiola powder
-- 1 tsp maca powder
-- 1 cup green tea
-- 1 tsp honey
-
-### Evening Calm Tea
-- 1 tsp holy basil
-- 1 tsp chamomile
-- 1 cup hot water
-- Steep for 10 minutes
-
-### Stress-Buster Smoothie
-- 1 tsp ashwagandha powder
-- 1 banana
-- 1 cup plant milk
-- 1 tbsp almond butter
-- 1 tsp cacao powder
-
-## Safety Considerations
-
-- Consult healthcare providers before starting any new herb regimen
-- Some adaptogens may interact with medications
-- Pregnant or nursing women should avoid most adaptogens
-- Start with lower doses to assess tolerance
-- Choose high-quality, third-party tested products
-
-## Lifestyle Support
-
-Adaptogens work best when combined with:
-- Regular stress management practices
-- Adequate sleep
-- Balanced nutrition
-- Regular exercise
-- Mindfulness or meditation
-
-## What to Expect
-
-- Week 1-2: May feel subtle energy changes
-- Week 3-4: More noticeable stress resilience
-- Week 6-8: Optimal benefits typically achieved
-
-Remember, adaptogens are not a magic cure but powerful allies in your stress management toolkit. They work best as part of a holistic approach to wellness that includes healthy lifestyle practices and stress reduction techniques.
-
-## Finding Quality Products
-
-Look for:
-- Organic certification
-- Third-party testing
-- Standardized extracts
-- Reputable brands
-- Proper storage and expiration dates
-
-Adaptogens offer a gentle, natural way to support your body's stress response system. Start your journey today and discover how these ancient herbs can help you thrive in our modern world.`,
-    category: "Remedies",
-    readTime: "10 min read",
-    date: "Dec 3, 2024",
-    image: "/placeholder.svg",
-    author: "Dr. Sarah Williams",
-    tags: ["adaptogens", "stress relief", "natural remedies", "herbs"]
+    tags: {
+      en: ["immune system", "natural remedies", "winter health", "nutrition"],
+      hi: ["प्रतिरक्षा प्रणाली", "प्राकृतिक उपचार", "सर्दी का स्वास्थ्य", "पोषण"]
+    }
   }
 ];

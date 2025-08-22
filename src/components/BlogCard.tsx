@@ -2,17 +2,8 @@ import { Link } from "react-router-dom";
 import { Calendar, Clock, Tag } from "lucide-react";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-
-interface BlogPost {
-  id: string;
-  title: string;
-  excerpt: string;
-  category: string;
-  readTime: string;
-  date: string;
-  image: string;
-  author: string;
-}
+import { useLanguage } from "@/contexts/LanguageContext";
+import { BlogPost } from "@/data/blogPosts";
 
 interface BlogCardProps {
   post: BlogPost;
@@ -34,22 +25,24 @@ const getCategoryColor = (category: string) => {
 };
 
 const BlogCard = ({ post }: BlogCardProps) => {
+  const { language } = useLanguage();
+  
   return (
     <Card className="group overflow-hidden hover:shadow-wellness transition-all duration-300 border-border/50 bg-gradient-card">
       <CardHeader className="p-0">
         <div className="relative overflow-hidden">
           <img
             src={post.image}
-            alt={post.title}
+            alt={post.title[language]}
             className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
           />
           <div className="absolute top-4 left-4">
             <Badge
               variant="secondary"
-              className={`${getCategoryColor(post.category)} border`}
+              className={`${getCategoryColor(post.category[language])} border`}
             >
               <Tag className="w-3 h-3 mr-1" />
-              {post.category}
+              {post.category[language]}
             </Badge>
           </div>
         </div>
@@ -63,29 +56,29 @@ const BlogCard = ({ post }: BlogCardProps) => {
           </div>
           <div className="flex items-center gap-1">
             <Clock className="w-4 h-4" />
-            {post.readTime}
+            {post.readTime[language]}
           </div>
         </div>
         
         <h3 className="font-heading font-semibold text-xl text-foreground mb-3 group-hover:text-primary transition-colors line-clamp-2">
           <Link to={`/blog/${post.id}`}>
-            {post.title}
+            {post.title[language]}
           </Link>
         </h3>
         
         <p className="text-muted-foreground text-sm mb-4 line-clamp-3">
-          {post.excerpt}
+          {post.excerpt[language]}
         </p>
         
         <div className="flex items-center justify-between">
           <span className="text-sm text-muted-foreground">
-            By {post.author}
+            {language === 'hi' ? 'लेखक:' : 'By'} {post.author}
           </span>
           <Link
             to={`/blog/${post.id}`}
             className="text-primary hover:text-primary-glow font-medium text-sm transition-colors"
           >
-            Read More →
+            {language === 'hi' ? 'और पढ़ें →' : 'Read More →'}
           </Link>
         </div>
       </CardContent>

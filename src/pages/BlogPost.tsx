@@ -5,23 +5,25 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { blogPosts } from "@/data/blogPosts";
 import BlogCard from "@/components/BlogCard";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const BlogPost = () => {
   const { id } = useParams<{ id: string }>();
+  const { language, t } = useLanguage();
   const post = blogPosts.find(p => p.id === id);
 
   if (!post) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
-          <h1 className="text-2xl font-bold text-foreground mb-4">Article Not Found</h1>
+          <h1 className="text-2xl font-bold text-foreground mb-4">{t('blog.articleNotFound')}</h1>
           <p className="text-muted-foreground mb-6">
-            Sorry, we couldn't find the article you're looking for.
+            {t('blog.articleNotFoundDesc')}
           </p>
           <Button asChild>
             <Link to="/blog">
               <ArrowLeft className="w-4 h-4 mr-2" />
-              Back to Blog
+              {t('blog.backToBlog')}
             </Link>
           </Button>
         </div>
@@ -30,7 +32,7 @@ const BlogPost = () => {
   }
 
   const relatedPosts = blogPosts
-    .filter(p => p.id !== post.id && p.category === post.category)
+    .filter(p => p.id !== post.id && p.category[language] === post.category[language])
     .slice(0, 3);
 
   const getCategoryColor = (category: string) => {
@@ -49,7 +51,7 @@ const BlogPost = () => {
   };
 
   const shareUrl = window.location.href;
-  const shareText = `Check out this article: ${post.title}`;
+  const shareText = `${t('blog.checkOutArticle')}: ${post.title[language]}`;
 
   return (
     <div className="min-h-screen py-8">
@@ -58,7 +60,7 @@ const BlogPost = () => {
         <Button variant="ghost" asChild className="mb-6">
           <Link to="/blog">
             <ArrowLeft className="w-4 h-4 mr-2" />
-            Back to Articles
+            {t('blog.backToArticles')}
           </Link>
         </Button>
 
@@ -67,10 +69,10 @@ const BlogPost = () => {
           <div className="flex items-center gap-4 mb-4">
             <Badge
               variant="secondary"
-              className={`${getCategoryColor(post.category)} border`}
+              className={`${getCategoryColor(post.category[language])} border`}
             >
               <Tag className="w-3 h-3 mr-1" />
-              {post.category}
+              {post.category[language]}
             </Badge>
             <div className="flex items-center gap-4 text-sm text-muted-foreground">
               <div className="flex items-center gap-1">
@@ -79,17 +81,17 @@ const BlogPost = () => {
               </div>
               <div className="flex items-center gap-1">
                 <Clock className="w-4 h-4" />
-                {post.readTime}
+                {post.readTime[language]}
               </div>
             </div>
           </div>
 
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-heading font-bold text-foreground mb-4 leading-tight">
-            {post.title}
+            {post.title[language]}
           </h1>
 
           <p className="text-lg text-muted-foreground mb-6">
-            {post.excerpt}
+            {post.excerpt[language]}
           </p>
 
           <div className="flex items-center justify-between">
@@ -100,13 +102,13 @@ const BlogPost = () => {
                 </span>
               </div>
               <div>
-                <p className="font-medium text-foreground">By {post.author}</p>
+                <p className="font-medium text-foreground">{language === 'hi' ? 'लेखक:' : 'By'} {post.author}</p>
               </div>
             </div>
 
             {/* Share Buttons */}
             <div className="flex items-center gap-2">
-              <span className="text-sm text-muted-foreground mr-2">Share:</span>
+              <span className="text-sm text-muted-foreground mr-2">{t('blog.share')}:</span>
               <Button
                 variant="ghost"
                 size="sm"
@@ -151,7 +153,7 @@ const BlogPost = () => {
         <div className="mb-8">
           <img
             src={post.image}
-            alt={post.title}
+            alt={post.title[language]}
             className="w-full h-64 sm:h-80 lg:h-96 object-cover rounded-xl shadow-card"
           />
         </div>
@@ -159,15 +161,15 @@ const BlogPost = () => {
         {/* Article Content */}
         <article className="prose prose-lg max-w-none mb-12">
           <div className="text-foreground leading-relaxed whitespace-pre-line">
-            {post.content}
+            {post.content[language]}
           </div>
         </article>
 
         {/* Tags */}
         <div className="mb-8">
-          <h3 className="font-heading font-semibold text-foreground mb-3">Tags</h3>
+          <h3 className="font-heading font-semibold text-foreground mb-3">{t('blog.tags')}</h3>
           <div className="flex flex-wrap gap-2">
-            {post.tags.map((tag) => (
+            {post.tags[language].map((tag) => (
               <Badge
                 key={tag}
                 variant="outline"
@@ -183,7 +185,7 @@ const BlogPost = () => {
         {relatedPosts.length > 0 && (
           <section className="mt-16">
             <h2 className="text-2xl font-heading font-bold text-foreground mb-8">
-              Related Articles
+              {t('blog.relatedArticles')}
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {relatedPosts.map((relatedPost) => (
@@ -197,19 +199,19 @@ const BlogPost = () => {
         <Card className="mt-16 bg-gradient-wellness border-border/50">
           <CardContent className="p-8 text-center">
             <h3 className="text-2xl font-heading font-bold text-foreground mb-4">
-              Loved this article?
+              {t('blog.lovedArticle')}
             </h3>
             <p className="text-muted-foreground mb-6">
-              Get more wellness insights delivered to your inbox weekly.
+              {t('blog.weeklyInsights')}
             </p>
             <div className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
               <input
                 type="email"
-                placeholder="Enter your email"
+                placeholder={t('newsletter.enterEmail')}
                 className="flex-1 px-4 py-3 rounded-lg border border-border bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
               />
               <Button className="bg-gradient-hero hover:opacity-90 text-white px-6 py-3">
-                Subscribe
+                {t('newsletter.subscribe')}
               </Button>
             </div>
           </CardContent>

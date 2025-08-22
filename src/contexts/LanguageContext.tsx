@@ -202,8 +202,8 @@ const translations = {
     // Newsletter
     'newsletter.title': 'जुड़े रहें',
     'newsletter.subtitle': 'माइंडफुलनेस और आध्यात्मिक विकास पर साप्ताहिक अंतर्दृष्टि प्राप्त करें।',
-    'newsletter.placeholder': 'अपना ईमेल दर्ज करें',
-    'newsletter.button': 'सब्सक्राइब करें',
+    'newsletter.enterEmail': 'अपना ईमेल दर्ज करें',
+    'newsletter.subscribe': 'सब्सक्राइब करें',
     
     // Footer
     'footer.description': 'माइंडफुल वेलनेस कंटेंट के माध्यम से मन, शरीर और आत्मा का पोषण। समग्र स्वास्थ्य और आंतरिक शांति की यात्रा में हमारे समुदाय से जुड़ें।',
@@ -238,6 +238,16 @@ const translations = {
     'blog.results.for': 'के लिए',
     'blog.no.results': 'आपके मानदंडों से मेल खाने वाले कोई लेख नहीं मिले।',
     'blog.clear.filters': 'फिल्टर साफ़ करें',
+    'blog.articleNotFound': 'लेख नहीं मिला',
+    'blog.articleNotFoundDesc': 'क्षमा करें, हमें वह लेख नहीं मिला जिसे आप खोज रहे हैं।',
+    'blog.backToBlog': 'ब्लॉग पर वापस जाएं',
+    'blog.backToArticles': 'लेखों पर वापस जाएं',
+    'blog.checkOutArticle': 'इस लेख को देखें',
+    'blog.share': 'साझा करें',
+    'blog.tags': 'टैग',
+    'blog.relatedArticles': 'संबंधित लेख',
+    'blog.lovedArticle': 'क्या आपको यह लेख पसंद आया?',
+    'blog.weeklyInsights': 'साप्ताहिक रूप से अपने इनबॉक्स में और वेलनेस जानकारी प्राप्त करें।',
 
     // About Page
     'about.title': 'सत्त्व स्पेस के बारे में',
