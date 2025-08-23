@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Search, Filter } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -10,22 +10,31 @@ import { useLanguage } from "@/contexts/LanguageContext";
 const Blog = () => {
   const { t, language } = useLanguage();
   const [searchQuery, setSearchQuery] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState(t('blog.categories.all'));
+  const [selectedCategoryKey, setSelectedCategoryKey] = useState("all");
 
-  const categories = [
-    t('blog.categories.all'), 
-    t('blog.categories.health'), 
-    t('blog.categories.fitness'), 
-    t('blog.categories.remedies'), 
-    t('blog.categories.lifestyle')
-  ];
+  // Reset search and category when language changes
+  useEffect(() => {
+    setSearchQuery("");
+    setSelectedCategoryKey("all");
+  }, [language]);
+
+  const categoryMap = {
+    all: t('blog.categories.all'),
+    health: t('blog.categories.health'),
+    fitness: t('blog.categories.fitness'),
+    remedies: t('blog.categories.remedies'),
+    lifestyle: t('blog.categories.lifestyle')
+  };
+
+  const categories = Object.entries(categoryMap);
 
   const filteredPosts = blogPosts.filter(post => {
     const matchesSearch = post.title[language].toLowerCase().includes(searchQuery.toLowerCase()) ||
                          post.excerpt[language].toLowerCase().includes(searchQuery.toLowerCase()) ||
                          post.tags[language].some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()));
     
-    const matchesCategory = selectedCategory === t('blog.categories.all') || post.category[language] === selectedCategory;
+    const matchesCategory = selectedCategoryKey === "all" || 
+                           post.category[language].toLowerCase() === categoryMap[selectedCategoryKey as keyof typeof categoryMap].toLowerCase();
     
     return matchesSearch && matchesCategory;
   });
@@ -79,18 +88,18 @@ const Blog = () => {
 
           {/* Categories */}
           <div className="flex flex-wrap gap-2">
-            {categories.map((category) => (
+            {categories.map(([key, label]) => (
                 <Badge
-                  key={category}
-                  variant={selectedCategory === category ? "default" : "outline"}
+                  key={key}
+                  variant={selectedCategoryKey === key ? "default" : "outline"}
                   className={`cursor-pointer transition-colors border ${
-                    selectedCategory === category 
+                    selectedCategoryKey === key 
                       ? "bg-primary text-primary-foreground" 
-                      : getCategoryColor(category)
+                      : getCategoryColor(label)
                   }`}
-                  onClick={() => setSelectedCategory(category)}
+                  onClick={() => setSelectedCategoryKey(key)}
                 >
-                  {category}
+                  {label}
                 </Badge>
             ))}
           </div>
@@ -100,7 +109,7 @@ const Blog = () => {
         <div className="mb-6">
             <p className="text-muted-foreground">
               {filteredPosts.length} {filteredPosts.length === 1 ? t('blog.results') : t('blog.results.plural')} {t('blog.results.found')}
-              {selectedCategory !== t('blog.categories.all') && ` ${t('blog.results.in')} ${selectedCategory}`}
+              {selectedCategoryKey !== "all" && ` ${t('blog.results.in')} ${categoryMap[selectedCategoryKey as keyof typeof categoryMap]}`}
               {searchQuery && ` ${t('blog.results.for')} "${searchQuery}"`}
             </p>
         </div>
@@ -121,7 +130,7 @@ const Blog = () => {
                 variant="outline"
                 onClick={() => {
                   setSearchQuery("");
-                  setSelectedCategory(t('blog.categories.all'));
+                  setSelectedCategoryKey("all");
                 }}
               >
                 {t('blog.clear.filters')}
