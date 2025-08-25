@@ -4,7 +4,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Badge } from '@/components/ui/badge'
 import { useAuth } from '@/contexts/AuthContext'
-import { BlogPost, ContactMessage, supabase } from '@/lib/supabase'
+import { supabase } from '@/integrations/supabase/client'
+import { BlogPost, ContactMessage } from '@/lib/supabase'
 import { BlogPostForm } from './BlogPostForm'
 import { toast } from 'sonner'
 import { 
