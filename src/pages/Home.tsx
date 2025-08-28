@@ -1,16 +1,40 @@
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
 import { ArrowRight, Heart, Leaf, Users, BookOpen } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import BlogCard from "@/components/BlogCard";
 import { NewsletterSignup } from "@/components/NewsletterSignup";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { blogPosts } from "@/data/blogPosts";
+import { supabase } from "@/integrations/supabase/client";
 import heroImage from "@/assets/hero-sattva-space.jpg";
+import { BlogPost } from "@/types/blog";
 
 const Home = () => {
   const { t } = useLanguage();
-  const featuredPosts = blogPosts.slice(0, 3);
+  const [featuredPosts, setFeaturedPosts] = useState<BlogPost[]>([]);
+
+  useEffect(() => {
+    const fetchFeaturedPosts = async () => {
+      try {
+        const { data, error } = await supabase
+          .from('blog_posts')
+          .select('*')
+          .order('published_at', { ascending: false })
+          .limit(3);
+
+        if (error) {
+          console.error('Error fetching featured posts:', error);
+        } else {
+          setFeaturedPosts(data || []);
+        }
+      } catch (error) {
+        console.error('Error fetching featured posts:', error);
+      }
+    };
+
+    fetchFeaturedPosts();
+  }, []);
 
   const features = [
     {

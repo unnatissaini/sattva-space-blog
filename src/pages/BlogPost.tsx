@@ -1,16 +1,90 @@
 import { useParams, Link } from "react-router-dom";
+import { useEffect, useState } from "react";
 import { Calendar, Clock, Tag, ArrowLeft, Share2, Facebook, Twitter } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
-import { blogPosts } from "@/data/blogPosts";
+import { supabase } from "@/integrations/supabase/client";
 import BlogCard from "@/components/BlogCard";
 import { useLanguage } from "@/contexts/LanguageContext";
+import type { BlogPost } from "@/types/blog";
 
 const BlogPost = () => {
   const { id } = useParams<{ id: string }>();
   const { language, t } = useLanguage();
-  const post = blogPosts.find(p => p.id === id);
+  const [post, setPost] = useState<BlogPost | null>(null);
+  const [relatedPosts, setRelatedPosts] = useState<BlogPost[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchPost = async () => {
+      if (!id) return;
+      
+      try {
+        // Fetch the post by slug
+        const { data: postData, error: postError } = await supabase
+          .from('blog_posts')
+          .select('*')
+          .eq('slug', id)
+          .single();
+
+        if (postError || !postData) {
+          console.error('Error fetching post:', postError);
+          setPost(null);
+        } else {
+          setPost(postData);
+          
+          // Fetch related posts
+          const { data: relatedData, error: relatedError } = await supabase
+            .from('blog_posts')
+            .select('*')
+            .eq('category', postData.category)
+            .neq('id', postData.id)
+            .limit(3);
+
+          if (!relatedError && relatedData) {
+            setRelatedPosts(relatedData);
+          }
+        }
+      } catch (error) {
+        console.error('Error fetching post:', error);
+        setPost(null);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPost();
+  }, [id]);
+
+  // Format date
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString(language === 'hi' ? 'hi-IN' : 'en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    });
+  };
+
+  // Calculate read time
+  const calculateReadTime = (content: string) => {
+    const wordsPerMinute = 200;
+    const wordCount = content.split(' ').length;
+    const readTime = Math.ceil(wordCount / wordsPerMinute);
+    return language === 'hi' ? `${readTime} मिनट पढ़ें` : `${readTime} min read`;
+  };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="animate-pulse text-center">
+          <div className="h-8 bg-muted rounded w-48 mx-auto mb-4"></div>
+          <div className="h-4 bg-muted rounded w-32 mx-auto"></div>
+        </div>
+      </div>
+    );
+  }
 
   if (!post) {
     return (
@@ -31,10 +105,6 @@ const BlogPost = () => {
     );
   }
 
-  const relatedPosts = blogPosts
-    .filter(p => p.id !== post.id && p.category[language] === post.category[language])
-    .slice(0, 3);
-
   const getCategoryColor = (category: string) => {
     switch (category.toLowerCase()) {
       case "health":
@@ -51,7 +121,7 @@ const BlogPost = () => {
   };
 
   const shareUrl = window.location.href;
-  const shareText = `${t('blog.checkOutArticle')}: ${post.title[language]}`;
+  const shareText = `${t('blog.checkOutArticle')}: ${post.title}`;
 
   return (
     <div className="min-h-screen py-8">
@@ -69,29 +139,29 @@ const BlogPost = () => {
           <div className="flex items-center gap-4 mb-4">
             <Badge
               variant="secondary"
-              className={`${getCategoryColor(post.category[language])} border`}
+              className={`${getCategoryColor(post.category)} border`}
             >
               <Tag className="w-3 h-3 mr-1" />
-              {post.category[language]}
+              {post.category}
             </Badge>
             <div className="flex items-center gap-4 text-sm text-muted-foreground">
               <div className="flex items-center gap-1">
                 <Calendar className="w-4 h-4" />
-                {post.date}
+                {formatDate(post.published_at)}
               </div>
               <div className="flex items-center gap-1">
                 <Clock className="w-4 h-4" />
-                {post.readTime[language]}
+                {calculateReadTime(post.content)}
               </div>
             </div>
           </div>
 
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-heading font-bold text-foreground mb-4 leading-tight">
-            {post.title[language]}
+            {post.title}
           </h1>
 
           <p className="text-lg text-muted-foreground mb-6">
-            {post.excerpt[language]}
+            {post.excerpt}
           </p>
 
           <div className="flex items-center justify-between">
@@ -150,36 +220,22 @@ const BlogPost = () => {
         </header>
 
         {/* Featured Image */}
-        <div className="mb-8">
-          <img
-            src={post.image}
-            alt={post.title[language]}
-            className="w-full h-64 sm:h-80 lg:h-96 object-cover rounded-xl shadow-card"
-          />
-        </div>
+        {post.image_url && (
+          <div className="mb-8">
+            <img
+              src={post.image_url}
+              alt={post.title}
+              className="w-full h-64 sm:h-80 lg:h-96 object-cover rounded-xl shadow-card"
+            />
+          </div>
+        )}
 
         {/* Article Content */}
         <article className="prose prose-lg max-w-none mb-12">
           <div className="text-foreground leading-relaxed whitespace-pre-line">
-            {post.content[language]}
+            {post.content}
           </div>
         </article>
-
-        {/* Tags */}
-        <div className="mb-8">
-          <h3 className="font-heading font-semibold text-foreground mb-3">{t('blog.tags')}</h3>
-          <div className="flex flex-wrap gap-2">
-            {post.tags[language].map((tag) => (
-              <Badge
-                key={tag}
-                variant="outline"
-                className="text-muted-foreground border-border hover:bg-muted"
-              >
-                #{tag}
-              </Badge>
-            ))}
-          </div>
-        </div>
 
         {/* Related Articles */}
         {relatedPosts.length > 0 && (

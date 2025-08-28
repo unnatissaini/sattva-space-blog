@@ -4,13 +4,40 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import BlogCard from "@/components/BlogCard";
-import { blogPosts } from "@/data/blogPosts";
+import { supabase } from "@/integrations/supabase/client";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { BlogPost } from "@/types/blog";
 
 const Blog = () => {
   const { t, language } = useLanguage();
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategoryKey, setSelectedCategoryKey] = useState("all");
+  const [blogPosts, setBlogPosts] = useState<BlogPost[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  // Fetch blog posts from Supabase
+  useEffect(() => {
+    const fetchBlogPosts = async () => {
+      try {
+        const { data, error } = await supabase
+          .from('blog_posts')
+          .select('*')
+          .order('published_at', { ascending: false });
+
+        if (error) {
+          console.error('Error fetching blog posts:', error);
+        } else {
+          setBlogPosts(data || []);
+        }
+      } catch (error) {
+        console.error('Error fetching blog posts:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchBlogPosts();
+  }, []);
 
   // Reset search and category when language changes
   useEffect(() => {
@@ -29,12 +56,11 @@ const Blog = () => {
   const categories = Object.entries(categoryMap);
 
   const filteredPosts = blogPosts.filter(post => {
-    const matchesSearch = post.title[language].toLowerCase().includes(searchQuery.toLowerCase()) ||
-                         post.excerpt[language].toLowerCase().includes(searchQuery.toLowerCase()) ||
-                         post.tags[language].some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()));
+    const matchesSearch = post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                         post.excerpt.toLowerCase().includes(searchQuery.toLowerCase());
     
     const matchesCategory = selectedCategoryKey === "all" || 
-                           post.category[language].toLowerCase() === categoryMap[selectedCategoryKey as keyof typeof categoryMap].toLowerCase();
+                           post.category.toLowerCase() === categoryMap[selectedCategoryKey as keyof typeof categoryMap].toLowerCase();
     
     return matchesSearch && matchesCategory;
   });
@@ -115,7 +141,15 @@ const Blog = () => {
         </div>
 
         {/* Blog Grid */}
-        {filteredPosts.length > 0 ? (
+        {loading ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {[...Array(6)].map((_, index) => (
+              <div key={index} className="animate-pulse">
+                <div className="bg-muted rounded-lg h-64"></div>
+              </div>
+            ))}
+          </div>
+        ) : filteredPosts.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredPosts.map((post) => (
               <BlogCard key={post.id} post={post} />

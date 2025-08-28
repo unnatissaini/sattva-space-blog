@@ -3,7 +3,7 @@ import { Calendar, Clock, Tag } from "lucide-react";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { BlogPost } from "@/data/blogPosts";
+import { BlogPost } from "@/types/blog";
 
 interface BlogCardProps {
   post: BlogPost;
@@ -27,22 +27,40 @@ const getCategoryColor = (category: string) => {
 const BlogCard = ({ post }: BlogCardProps) => {
   const { language } = useLanguage();
   
+  // Format date
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString(language === 'hi' ? 'hi-IN' : 'en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    });
+  };
+
+  // Calculate read time (rough estimate: 200 words per minute)
+  const calculateReadTime = (content: string) => {
+    const wordsPerMinute = 200;
+    const wordCount = content.split(' ').length;
+    const readTime = Math.ceil(wordCount / wordsPerMinute);
+    return language === 'hi' ? `${readTime} मिनट पढ़ें` : `${readTime} min read`;
+  };
+  
   return (
     <Card className="group overflow-hidden hover:shadow-wellness transition-all duration-300 border-border/50 bg-gradient-card">
       <CardHeader className="p-0">
         <div className="relative overflow-hidden">
           <img
-            src={post.image}
-            alt={post.title[language]}
+            src={post.image_url || "/placeholder.svg"}
+            alt={post.title}
             className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
           />
           <div className="absolute top-4 left-4">
             <Badge
               variant="secondary"
-              className={`${getCategoryColor(post.category[language])} border`}
+              className={`${getCategoryColor(post.category)} border`}
             >
               <Tag className="w-3 h-3 mr-1" />
-              {post.category[language]}
+              {post.category}
             </Badge>
           </div>
         </div>
@@ -52,22 +70,22 @@ const BlogCard = ({ post }: BlogCardProps) => {
         <div className="flex items-center gap-4 text-sm text-muted-foreground mb-3">
           <div className="flex items-center gap-1">
             <Calendar className="w-4 h-4" />
-            {post.date}
+            {formatDate(post.published_at)}
           </div>
           <div className="flex items-center gap-1">
             <Clock className="w-4 h-4" />
-            {post.readTime[language]}
+            {calculateReadTime(post.content)}
           </div>
         </div>
         
         <h3 className="font-heading font-semibold text-xl text-foreground mb-3 group-hover:text-primary transition-colors line-clamp-2">
-          <Link to={`/blog/${post.id}`}>
-            {post.title[language]}
+          <Link to={`/blog/${post.slug}`}>
+            {post.title}
           </Link>
         </h3>
         
         <p className="text-muted-foreground text-sm mb-4 line-clamp-3">
-          {post.excerpt[language]}
+          {post.excerpt}
         </p>
         
         <div className="flex items-center justify-between">
@@ -75,7 +93,7 @@ const BlogCard = ({ post }: BlogCardProps) => {
             {language === 'hi' ? 'लेखक:' : 'By'} {post.author}
           </span>
           <Link
-            to={`/blog/${post.id}`}
+            to={`/blog/${post.slug}`}
             className="text-primary hover:text-primary-glow font-medium text-sm transition-colors"
           >
             {language === 'hi' ? 'और पढ़ें →' : 'Read More →'}
