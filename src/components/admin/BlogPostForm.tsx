@@ -14,7 +14,9 @@ import { Loader2, Upload, X } from 'lucide-react'
 
 const blogPostSchema = z.object({
   title: z.string().min(1, 'Title is required'),
+  title_hi: z.string().optional(),
   excerpt: z.string().min(1, 'Excerpt is required'),
+  excerpt_hi: z.string().optional(),
   category: z.string().min(1, 'Category is required'),
   author: z.string().min(1, 'Author is required'),
   image_url: z.string().optional(),
@@ -25,7 +27,7 @@ type BlogPostFormData = z.infer<typeof blogPostSchema>
 
 interface BlogPostFormProps {
   initialData?: Partial<BlogPost>
-  onSubmit: (data: BlogPostFormData & { content: string }) => Promise<void>
+  onSubmit: (data: BlogPostFormData & { content: string; content_hi?: string }) => Promise<void>
   onCancel: () => void
   isLoading?: boolean
 }
@@ -39,6 +41,7 @@ export const BlogPostForm = ({
   isLoading = false 
 }: BlogPostFormProps) => {
   const [content, setContent] = useState(initialData?.content || '')
+  const [contentHi, setContentHi] = useState(initialData?.content_hi || '')
   const [imagePreview, setImagePreview] = useState<string | null>(initialData?.image_url || null)
 
   const {
@@ -51,7 +54,9 @@ export const BlogPostForm = ({
     resolver: zodResolver(blogPostSchema),
     defaultValues: {
       title: initialData?.title || '',
+      title_hi: initialData?.title_hi || '',
       excerpt: initialData?.excerpt || '',
+      excerpt_hi: initialData?.excerpt_hi || '',
       category: initialData?.category || '',
       author: initialData?.author || '',
       image_url: initialData?.image_url || '',
@@ -83,7 +88,11 @@ export const BlogPostForm = ({
       return
     }
 
-    await onSubmit({ ...data, content })
+    await onSubmit({ 
+      ...data, 
+      content,
+      content_hi: contentHi.trim() || undefined
+    })
   }
 
   return (
@@ -124,7 +133,7 @@ export const BlogPostForm = ({
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="excerpt">Excerpt</Label>
+            <Label htmlFor="excerpt">Excerpt (English)</Label>
             <Input
               id="excerpt"
               placeholder="Brief description of the post"
@@ -134,6 +143,26 @@ export const BlogPostForm = ({
             {errors.excerpt && (
               <p className="text-sm text-destructive">{errors.excerpt.message}</p>
             )}
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="space-y-2">
+              <Label htmlFor="title_hi">Title (Hindi) - Optional</Label>
+              <Input
+                id="title_hi"
+                placeholder="हिंदी में शीर्षक"
+                {...register('title_hi')}
+              />
+            </div>
+            
+            <div className="space-y-2">
+              <Label htmlFor="excerpt_hi">Excerpt (Hindi) - Optional</Label>
+              <Input
+                id="excerpt_hi"
+                placeholder="हिंदी में संक्षिप्त विवरण"
+                {...register('excerpt_hi')}
+              />
+            </div>
           </div>
 
           <div className="space-y-2">
@@ -206,11 +235,20 @@ export const BlogPostForm = ({
           </div>
 
           <div className="space-y-2">
-            <Label>Content</Label>
+            <Label>Content (English)</Label>
             <RichTextEditor
               content={content}
               onChange={setContent}
               placeholder="Write your blog post content here..."
+            />
+          </div>
+
+          <div className="space-y-2">
+            <Label>Content (Hindi) - Optional</Label>
+            <RichTextEditor
+              content={contentHi}
+              onChange={setContentHi}
+              placeholder="यहाँ अपना हिंदी ब्लॉग पोस्ट लिखें..."
             />
           </div>
 

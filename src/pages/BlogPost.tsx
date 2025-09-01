@@ -157,11 +157,11 @@ const BlogPost = () => {
           </div>
 
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-heading font-bold text-foreground mb-4 leading-tight">
-            {post.title}
+            {language === 'hi' && post.title_hi ? post.title_hi : post.title}
           </h1>
 
           <p className="text-lg text-muted-foreground mb-6">
-            {post.excerpt}
+            {language === 'hi' && post.excerpt_hi ? post.excerpt_hi : post.excerpt}
           </p>
 
           <div className="flex items-center justify-between">
@@ -233,7 +233,7 @@ const BlogPost = () => {
         {/* Article Content */}
         <article className="prose prose-lg max-w-none mb-12">
           <div className="text-foreground leading-relaxed whitespace-pre-line">
-            {post.content}
+            {language === 'hi' && post.content_hi ? post.content_hi : post.content}
           </div>
         </article>
 

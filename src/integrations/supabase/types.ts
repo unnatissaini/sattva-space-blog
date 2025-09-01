@@ -19,13 +19,17 @@ export type Database = {
           author: string
           category: string
           content: string
+          content_hi: string | null
           created_at: string | null
           excerpt: string
+          excerpt_hi: string | null
           id: string
           image_url: string | null
+          language: string | null
           published_at: string | null
           slug: string
           title: string
+          title_hi: string | null
           updated_at: string | null
           video_url: string | null
         }
@@ -33,13 +37,17 @@ export type Database = {
           author: string
           category: string
           content: string
+          content_hi?: string | null
           created_at?: string | null
           excerpt: string
+          excerpt_hi?: string | null
           id?: string
           image_url?: string | null
+          language?: string | null
           published_at?: string | null
           slug: string
           title: string
+          title_hi?: string | null
           updated_at?: string | null
           video_url?: string | null
         }
@@ -47,13 +55,17 @@ export type Database = {
           author?: string
           category?: string
           content?: string
+          content_hi?: string | null
           created_at?: string | null
           excerpt?: string
+          excerpt_hi?: string | null
           id?: string
           image_url?: string | null
+          language?: string | null
           published_at?: string | null
           slug?: string
           title?: string
+          title_hi?: string | null
           updated_at?: string | null
           video_url?: string | null
         }

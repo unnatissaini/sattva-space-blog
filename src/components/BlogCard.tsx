@@ -27,12 +27,12 @@ const getCategoryColor = (category: string) => {
 const BlogCard = ({ post }: BlogCardProps) => {
   const { language } = useLanguage();
   
-  // Format date
+  // Format date based on language
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
     return date.toLocaleDateString(language === 'hi' ? 'hi-IN' : 'en-US', {
       year: 'numeric',
-      month: 'long',
+      month: 'short',
       day: 'numeric'
     });
   };
@@ -74,18 +74,18 @@ const BlogCard = ({ post }: BlogCardProps) => {
           </div>
           <div className="flex items-center gap-1">
             <Clock className="w-4 h-4" />
-            {calculateReadTime(post.content)}
+            {calculateReadTime(language === 'hi' && post.content_hi ? post.content_hi : post.content)}
           </div>
         </div>
         
         <h3 className="font-heading font-semibold text-xl text-foreground mb-3 group-hover:text-primary transition-colors line-clamp-2">
           <Link to={`/blog/${post.slug}`}>
-            {post.title}
+            {language === 'hi' && post.title_hi ? post.title_hi : post.title}
           </Link>
         </h3>
         
         <p className="text-muted-foreground text-sm mb-4 line-clamp-3">
-          {post.excerpt}
+          {language === 'hi' && post.excerpt_hi ? post.excerpt_hi : post.excerpt}
         </p>
         
         <div className="flex items-center justify-between">
