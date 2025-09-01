@@ -19,13 +19,14 @@ const Footer = () => {
                 <img 
                   src={lotusLogo} 
                   alt="Sattva Space Lotus Logo" 
-                  className="w-6 h-6" // slightly smaller to fit nicely inside the 8x8 container
+                  className="w-6 h-6"
                 />
               </div>
               <span className="text-xl font-heading font-semibold text-foreground">
                 Sattva Space
               </span>
             </Link>
+
             <p className="text-muted-foreground mb-4 max-w-md">
               {t('footer.description')}
             </p>
