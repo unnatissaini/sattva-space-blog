@@ -3,6 +3,7 @@ import { Facebook, Twitter, Instagram, Mail, Heart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useLanguage } from "@/contexts/LanguageContext";
+import lotusLogo from "@/assets/lotus-logo.png";
 
 const Footer = () => {
   const { t } = useLanguage();
