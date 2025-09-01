@@ -14,9 +14,11 @@ const Footer = () => {
           {/* Brand Section */}
           <div className="col-span-1 md:col-span-2">
             <Link to="/" className="flex items-center space-x-2 mb-4">
-              <div className="w-8 h-8 bg-gradient-hero rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-sm">S</span>
-              </div>
+              <img 
+                  src={lotusLogo} 
+                  alt="Sattva Space Lotus Logo" 
+                  className="w-8 h-8"
+                />
               <span className="text-xl font-heading font-semibold text-foreground">
                 Sattva Space
               </span>
