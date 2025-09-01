@@ -4,6 +4,7 @@ import { Menu, X, User, Globe } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/contexts/AuthContext";
 import { useLanguage } from "@/contexts/LanguageContext";
+import lotusLogo from "@/assets/lotus-logo.png";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -26,9 +27,11 @@ const Header = () => {
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-gradient-hero rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-sm">S</span>
-            </div>
+            <img 
+              src={lotusLogo} 
+              alt="Sattva Space Lotus Logo" 
+              className="w-8 h-8"
+            />
             <span className="text-xl font-heading font-semibold text-foreground">
               Sattva Space
             </span>
